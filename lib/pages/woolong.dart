@@ -31,8 +31,8 @@ class WoolongPage extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/woolong.jpg',
-              fit: BoxFit.fill,
+              'assets/woolong.png',
+              fit: BoxFit.scaleDown,
             ),
           ),
           Center(

@@ -32,7 +32,7 @@ class SpacebucksPage extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/spacebucks.jpg',
-              fit: BoxFit.fill,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Center(
