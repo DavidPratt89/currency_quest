@@ -17,12 +17,12 @@ class GoldCoinsPage extends StatelessWidget {
       {
         'item': 'Rejuvenation Potion',
         'amount': 1549.50,
-        'image': 'assets/lucky_strikes.jpg',
+        'image': 'assets/rejuvenation.ico',
       },
       {
-        'item': 'Faye Valentine\'s Debt',
-        'amount': 300028000,
-        'image': 'assets/ein_food.jpg',
+        'item': 'Scroll of Town Portal',
+        'amount': 300028000.00,
+        'image': 'assets/town_portal.png',
       },
     ];
 
@@ -32,21 +32,21 @@ class GoldCoinsPage extends StatelessWidget {
           Positioned.fill(
             child: Image.asset(
               'assets/diablo_gold.jpg',
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.scaleDown,
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: [
+                  const SizedBox(height: 20),
                   Text(
                     'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
                     style: const TextStyle(
                       fontSize: 60,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -56,61 +56,63 @@ class GoldCoinsPage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 45,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, // Text color
+                      color: Color.fromARGB(255, 255, 255, 255), // Text color
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 300),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: purchaseOptions.length,
-                      itemBuilder: (context, index) {
-                        final option = purchaseOptions[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Center(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey,
-                                foregroundColor: Colors.black,
-                              ),
-                              onPressed: () {
-                                showPurchaseDialog(
-                                  context,
-                                  bank,
-                                  option['item'] as String,
-                                  option['amount'] as double,
-                                  exchangeRate,
-                                );
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    option['image'] as String,
-                                    fit: BoxFit.fitHeight,
-                                    height: 60,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    option['item'] as String,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
                 ],
               ),
-            ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: purchaseOptions.length,
+                  itemBuilder: (context, index) {
+                    final option = purchaseOptions[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFD4AF37), // Gold color
+                            foregroundColor: Colors.black,
+                          ),
+                          onPressed: () {
+                            showPurchaseDialog(
+                              context,
+                              bank,
+                              option['item'] as String,
+                              option['amount'] as double,
+                              exchangeRate,
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                option['image'] as String,
+                                fit: BoxFit.fitHeight,
+                                height: 60,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  option['item'] as String,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),

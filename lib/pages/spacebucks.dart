@@ -35,18 +35,18 @@ class SpacebucksPage extends StatelessWidget {
               fit: BoxFit.fitWidth,
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: [
+                  const SizedBox(height: 20),
                   Text(
-                    'Balance\n' 'USD: \$${formatNumber(bank.vault.balance)}',
+                    'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
                     style: const TextStyle(
                       fontSize: 60,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 255, 17, 0),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -56,61 +56,64 @@ class SpacebucksPage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 45,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 255, 17, 0),
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: purchaseOptions.length,
-                      itemBuilder: (context, index) {
-                        final option = purchaseOptions[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Center(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                foregroundColor: Colors.white,
-                              ),
-                              onPressed: () {
-                                showPurchaseDialog(
-                                  context,
-                                  bank,
-                                  option['item'] as String,
-                                  option['amount'] as double,
-                                  exchangeRate,
-                                );
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    option['image'] as String,
-                                    fit: BoxFit.fitHeight,
-                                    height: 60,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    option['item'] as String,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
                 ],
               ),
-            ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: purchaseOptions.length,
+                  itemBuilder: (context, index) {
+                    final option = purchaseOptions[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Color.fromARGB(255, 255, 17, 0), // Gold color
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: () {
+                            showPurchaseDialog(
+                              context,
+                              bank,
+                              option['item'] as String,
+                              option['amount'] as double,
+                              exchangeRate,
+                            );
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                option['image'] as String,
+                                fit: BoxFit.fitHeight,
+                                height: 60,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  option['item'] as String,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
