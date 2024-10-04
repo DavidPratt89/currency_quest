@@ -21,8 +21,7 @@ class Vault extends ChangeNotifier {
   final Map<String, double> conversionRates = {
     'WOOLONG': 0.007,
     'Gold Coins': 0.0004,
-    'Currency 3': 2.5,
-    'Currency 4': 3.0,
+    'Spacebucks': 2.5,
   };
 
 //

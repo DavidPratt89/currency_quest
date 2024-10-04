@@ -8,6 +8,23 @@ class GoldCoinsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bank = Bank.of(context);
     const exchangeRate = 0.0004; // Actual Gold Exchange Rate
+    final purchaseOptions = [
+      {
+        'item': 'Horadric Cube',
+        'amount': 1.88,
+        'image': 'assets/cube.ico',
+      },
+      {
+        'item': 'Rejuvenation Potion',
+        'amount': 1549.50,
+        'image': 'assets/lucky_strikes.jpg',
+      },
+      {
+        'item': 'Faye Valentine\'s Debt',
+        'amount': 300028000,
+        'image': 'assets/ein_food.jpg',
+      },
+    ];
 
     return Scaffold(
       body: Stack(
@@ -44,100 +61,51 @@ class GoldCoinsPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 300),
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.black,
-                      ),
-                      onPressed: () {
-                        showPurchaseDialog(
-                          context,
-                          bank,
-                          'Horadric Cube',
-                          1.88,
-                          exchangeRate,
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: purchaseOptions.length,
+                      itemBuilder: (context, index) {
+                        final option = purchaseOptions[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey,
+                                foregroundColor: Colors.black,
+                              ),
+                              onPressed: () {
+                                showPurchaseDialog(
+                                  context,
+                                  bank,
+                                  option['item'] as String,
+                                  option['amount'] as double,
+                                  exchangeRate,
+                                );
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    option['image'] as String,
+                                    fit: BoxFit.fitHeight,
+                                    height: 60,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    option['item'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         );
                       },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            'assets/cube.ico', // Path to your item image
-                            fit: BoxFit.fitHeight,
-                            height: 60, // Adjust the height as needed
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            'Horadric Cube\n(1.88 USD)',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.black,
-                      ),
-                      onPressed: () {
-                        showPurchaseDialog(
-                          context,
-                          bank,
-                          'Rejuvenation Potion',
-                          1549.50,
-                          exchangeRate,
-                        );
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            'assets/lucky_strikes.jpg', // Path to your item image
-                            height: 40,
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            'Rejuvenation Potion\n(1,549.50 USD)',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.black,
-                      ),
-                      onPressed: () {
-                        showPurchaseDialog(
-                          context,
-                          bank,
-                          'Faye Valentine\'s Debt',
-                          300028000,
-                          exchangeRate,
-                        );
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            'assets/ein_food.jpg', // Path to your item image
-                            height: 40,
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            'Pay off Faye\'s Debt\n(300,028,000 USD)',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ],
@@ -157,7 +125,7 @@ class GoldCoinsPage extends StatelessWidget {
         return AlertDialog(
           title: Text('Confirm Purchase'),
           content: Text(
-              'Do you want to buy $item for ${formatNumber(amount / exchangeRate)}?'),
+              'Do you want to buy $item for \$${(amount).toStringAsFixed(2)}?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
