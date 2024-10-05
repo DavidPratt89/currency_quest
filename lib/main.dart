@@ -10,7 +10,7 @@
 import 'package:flutter/material.dart';
 import 'pages/woolong.dart';
 import 'pages/goldcoins.dart';
-import 'pages/currency_3.dart';
+import 'pages/spacebucks.dart';
 import 'widgets/bank.dart';
 import 'pages/home.dart';
 import 'models/vault.dart';
@@ -55,22 +55,11 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Currency Quest',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.blue,
-          ).copyWith(
-            secondary: Colors.amber,
-            primary: Colors.blue,
-            onPrimary: Colors.white,
-            onSecondary: Colors.black,
-          ),
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: Theme.of(context).colorScheme.inversePrimary,
           appBarTheme: AppBarTheme(
+            foregroundColor: Colors.black,
             backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-            titleTextStyle: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            actionsIconTheme: IconThemeData(color: Colors.black),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.blue,
@@ -92,8 +81,8 @@ class _MyAppState extends State<MyApp> {
               MainScaffold(title: 'Woolong', child: WoolongPage()),
           '/goldcoins': (context) =>
               MainScaffold(title: 'Gold Coins', child: GoldCoinsPage()),
-          '/currency3': (context) =>
-              MainScaffold(title: 'Currency 3', child: Currency3Page()),
+          '/spacebucks': (context) =>
+              MainScaffold(title: 'Spacebucks', child: SpacebucksPage()),
         },
       ),
     );
@@ -137,7 +126,11 @@ class MainScaffold extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
+            icon: Text('\u20A9',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                )),
             label: 'Woolong',
           ),
           BottomNavigationBarItem(
@@ -146,7 +139,7 @@ class MainScaffold extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money),
-            label: 'Currency 3',
+            label: 'Spacebucks',
           ),
         ],
         onTap: (index) {
@@ -158,7 +151,7 @@ class MainScaffold extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed('/goldcoins');
               break;
             case 2:
-              Navigator.of(context).pushReplacementNamed('/currency3');
+              Navigator.of(context).pushReplacementNamed('/spacebucks');
               break;
           }
         },

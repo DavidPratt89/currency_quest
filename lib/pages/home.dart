@@ -71,9 +71,8 @@ class HomePage extends StatelessWidget {
                 itemCount: bank.vault.items.length,
                 itemBuilder: (context, index) {
                   final item = bank.vault.items.entries.elementAt(index);
-                  final count = bank.vault.items.values.elementAt(index);
                   return ListTile(
-                    title: Text('${item.key}: $count'),
+                    title: Text('${item.key}:'),
                     trailing: Text('x${item.value}'),
                   );
                 },
@@ -146,9 +145,15 @@ Future<void> _depositDialog(BuildContext context) async {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Form(
+        title: const Text('How much would you like to deposit?'),
+        content: Form(
           key: _keyForm,
           child: TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Amount',
+              hintText: 'Enter an amount',
+              border: OutlineInputBorder(),
+            ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             onSaved: (value) {
               final bank = Bank.of(context);
@@ -177,7 +182,7 @@ Future<void> _depositDialog(BuildContext context) async {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Save'),
+            child: const Text('(Ok)'),
           ),
           TextButton(
             onPressed: () {

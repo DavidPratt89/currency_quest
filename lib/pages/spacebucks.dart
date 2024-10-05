@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:currency_quest/widgets/bank.dart';
+import '../widgets/bank.dart';
 
-class GoldCoinsPage extends StatelessWidget {
-  const GoldCoinsPage({super.key});
+class SpacebucksPage extends StatelessWidget {
+  const SpacebucksPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final bank = Bank.of(context);
-    const exchangeRate = 0.0004; // Actual Gold Exchange Rate
+    const exchangeRate = 2.5;
     final purchaseOptions = [
       {
-        'item': 'Horadric Cube',
-        'amount': 1.88,
-        'image': 'assets/cube.ico',
+        'item': 'Raspberry Jam',
+        'amount': 8.99,
+        'image': 'assets/raspberry_jam.jpg',
       },
       {
-        'item': 'Rejuvenation Potion',
-        'amount': 1549.50,
-        'image': 'assets/rejuvenation.ico',
+        'item': 'Spaceballs Coloring Book',
+        'amount': 14.99,
+        'image': 'assets/spaceballs_coloring_book.jpg',
       },
       {
-        'item': 'Scroll of Town Portal',
-        'amount': 300028000.00,
-        'image': 'assets/town_portal.png',
+        'item': 'Spaceballs Lunchbox',
+        'amount': 20.99,
+        'image': 'assets/spaceballs_lunchbox.jpg',
       },
     ];
 
@@ -31,8 +31,8 @@ class GoldCoinsPage extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/diablo_gold.jpg',
-              fit: BoxFit.scaleDown,
+              'assets/spacebucks.jpg',
+              fit: BoxFit.fitWidth,
               alignment: Alignment.topCenter,
             ),
           ),
@@ -55,18 +55,19 @@ class GoldCoinsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.monetization_on,
+                        Icons.money,
                         color: Colors.black,
                         size: 50,
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Gold Coins: ${formatNumber(bank.vault.balance / exchangeRate)}',
+                        'Spacebucks: ${formatNumber(bank.vault.balance / exchangeRate)}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
