@@ -154,8 +154,8 @@ class GoldCoinsPage extends StatelessWidget {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {
-                final success = bank.buy(item, amount);
+              onPressed: () async {
+                final success = await bank.buy(item, amount);
                 Navigator.of(context).pop();
                 if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(

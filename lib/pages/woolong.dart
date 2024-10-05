@@ -20,7 +20,7 @@ class WoolongPage extends StatelessWidget {
         'image': 'assets/lucky_strikes.jpg',
       },
       {
-        'item': 'Buy Food for Ein',
+        'item': 'Food for Ein',
         'amount': 5949.00,
         'image': 'assets/ein_food.jpg',
       },
