@@ -166,7 +166,8 @@ Future<void> _depositDialog(BuildContext context) async {
               if (value == null || value.isEmpty) {
                 return 'Please enter an amount';
               }
-              if (double.tryParse(value) == null) {
+              if (double.tryParse(value) == null ||
+                  double.tryParse(value)! <= 0) {
                 return 'Please enter a valid number';
               }
               return null;

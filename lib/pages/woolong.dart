@@ -94,7 +94,7 @@ class WoolongPage extends StatelessWidget {
                           padding: const EdgeInsets.all(10.0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white, // Gold color
+                              backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
                             ),
                             onPressed: () {
@@ -160,8 +160,9 @@ class WoolongPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                final success = bank.buy(item, amount);
                 Navigator.of(context).pop();
-                if (bank.buy(item, amount)) {
+                if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );

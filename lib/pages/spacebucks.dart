@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/bank.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class SpacebucksPage extends StatelessWidget {
   const SpacebucksPage({super.key});
@@ -91,7 +92,7 @@ class SpacebucksPage extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white, // Gold color
+                            backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
@@ -156,8 +157,9 @@ class SpacebucksPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                final success = bank.buy(item, amount);
                 Navigator.of(context).pop();
-                if (bank.buy(item, amount)) {
+                if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );
@@ -167,7 +169,7 @@ class SpacebucksPage extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Confirm'),
+              child: const Text('(OK)'),
             ),
           ],
         );

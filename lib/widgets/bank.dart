@@ -34,7 +34,7 @@ class Bank extends InheritedWidget {
       appKey.currentState?.setState(() {});
       // TODO: Play a sound to indicate the purchase succeeded. (15 pts)
       AudioPlayer()
-          .play(AssetSource('assets/cash_register.wav')); // Play success sound
+          .play(AssetSource('cash_register.wav')); // Play success sound
       return true;
     }
     // TODO: Play a sound to indicate the purchase failed. (15 pts)
