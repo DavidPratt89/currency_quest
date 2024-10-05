@@ -32,9 +32,9 @@ class HomePage extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 final balanceText =
-                    'Balance:\n\$${bank.vault.balance.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+\.)'), (Match match) => '${match[1]},')}';
+                    'Balance USD:\n\$${bank.vault.balance.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+\.)'), (Match match) => '${match[1]},')}';
                 final textStyle = TextStyle(
-                  fontSize: 60,
+                  fontSize: 50,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 );
@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
             const Text(
               'Inventory:',
               style: TextStyle(
-                fontSize: 45,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -94,20 +94,8 @@ class HomePage extends StatelessWidget {
                       bank.vault.conversionRates.keys.elementAt(index);
                   final rate = bank.vault.conversionRates[currency];
                   return ListTile(
-                    title: Text(
-                      currency,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    trailing: Text(
-                      '$rate $currency = 1 USD',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    title: Text('$currency:'),
+                    trailing: Text('$rate'),
                   );
                 },
               ),

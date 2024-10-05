@@ -11,17 +11,17 @@ class WoolongPage extends StatelessWidget {
     final purchaseOptions = [
       {
         'item': 'Bell Peppers and Beef with Mushrooms',
-        'amount': 1066.17,
+        'amount': 1099.99,
         'image': 'assets/bell_peppers_beef.jpg',
       },
       {
         'item': 'Lucky Strikes',
-        'amount': 1549.50,
+        'amount': 1549.49,
         'image': 'assets/lucky_strikes.jpg',
       },
       {
         'item': 'Food for Ein',
-        'amount': 5949.00,
+        'amount': 5949.49,
         'image': 'assets/ein_food.jpg',
       },
     ];
@@ -41,22 +41,13 @@ class WoolongPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 375),
-                  Text(
-                    'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  const SizedBox(height: 450),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('\u20A9',
                           style: const TextStyle(
-                            fontSize: 40,
+                            fontSize: 50,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           )),
@@ -98,6 +89,12 @@ class WoolongPage extends StatelessWidget {
                               foregroundColor: Colors.black,
                             ),
                             onPressed: () {
+                              final amountInUSD =
+                                  (option['amount'] as double) * exchangeRate;
+                              if (bank.vault
+                                  .buy(option['item'] as String, amountInUSD)) {
+                                bank.deposit(-amountInUSD);
+                              }
                               showPurchaseDialog(
                                 context,
                                 bank,
@@ -123,7 +120,15 @@ class WoolongPage extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  '${option['amount']} WOOLONG',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],

@@ -8,7 +8,7 @@ class SpacebucksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bank = Bank.of(context);
-    const exchangeRate = 2.5;
+    const exchangeRate = 2.5; // Just made this one up
     final purchaseOptions = [
       {
         'item': 'Raspberry Jam',
@@ -42,16 +42,7 @@ class SpacebucksPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 375),
-                  Text(
-                    'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  const SizedBox(height: 475),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -68,7 +59,6 @@ class SpacebucksPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
@@ -96,6 +86,12 @@ class SpacebucksPage extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
+                            final amountInUSD =
+                                (option['amount'] as double) * exchangeRate;
+                            if (bank.vault
+                                .buy(option['item'] as String, amountInUSD)) {
+                              bank.deposit(-amountInUSD);
+                            }
                             showPurchaseDialog(
                               context,
                               bank,
@@ -117,13 +113,19 @@ class SpacebucksPage extends StatelessWidget {
                                 child: Text(
                                   option['item'] as String,
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
+                                  overflow: TextOverflow.visible,
                                 ),
                               ),
+                              const SizedBox(width: 10),
+                              Text('${option['amount']} Spacebucks',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                             ],
                           ),
                         ),
