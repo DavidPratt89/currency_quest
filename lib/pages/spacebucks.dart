@@ -91,7 +91,7 @@ class SpacebucksPage extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFD4AF37), // Gold color
+                            backgroundColor: Colors.white, // Gold color
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {

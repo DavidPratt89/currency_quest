@@ -11,17 +11,17 @@ class GoldCoinsPage extends StatelessWidget {
     final purchaseOptions = [
       {
         'item': 'Horadric Cube',
-        'amount': 1.88,
+        'amount': 4999.99,
         'image': 'assets/cube.ico',
       },
       {
         'item': 'Rejuvenation Potion',
-        'amount': 1549.50,
+        'amount': 99.99,
         'image': 'assets/rejuvenation.ico',
       },
       {
         'item': 'Scroll of Town Portal',
-        'amount': 300028000.00,
+        'amount': 49.99,
         'image': 'assets/town_portal.png',
       },
     ];
@@ -90,7 +90,7 @@ class GoldCoinsPage extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFD4AF37), // Gold color
+                            backgroundColor: Colors.white, // Gold color
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
