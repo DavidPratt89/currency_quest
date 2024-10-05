@@ -55,17 +55,11 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Currency Quest',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.blueGrey,
-          ).copyWith(
-            secondary: Colors.amber,
-            primary: Colors.blue,
-            onPrimary: Colors.black,
-            onSecondary: Colors.black,
-          ),
           scaffoldBackgroundColor: Theme.of(context).colorScheme.inversePrimary,
           appBarTheme: AppBarTheme(
             foregroundColor: Colors.black,
+            backgroundColor: Colors.blue,
+            actionsIconTheme: IconThemeData(color: Colors.black),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.blue,
@@ -132,7 +126,11 @@ class MainScaffold extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
+            icon: Text('\u20A9',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                )),
             label: 'Woolong',
           ),
           BottomNavigationBarItem(

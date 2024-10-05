@@ -33,6 +33,7 @@ class GoldCoinsPage extends StatelessWidget {
             child: Image.asset(
               'assets/diablo_gold.jpg',
               fit: BoxFit.scaleDown,
+              alignment: Alignment.topCenter,
             ),
           ),
           Column(
@@ -40,25 +41,42 @@ class GoldCoinsPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 375),
                   Text(
                     'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
                     style: const TextStyle(
-                      fontSize: 60,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Gold Coins: ${formatNumber(bank.vault.balance / exchangeRate)}',
-                    style: const TextStyle(
-                      fontSize: 45,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.monetization_on,
+                        color: Colors.black,
+                        size: 50,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Gold Coins: ${formatNumber(bank.vault.balance / exchangeRate)}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    'Purchase Options:',
+                    style: TextStyle(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255), // Text color
+                      color: Colors.white,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ],
               ),

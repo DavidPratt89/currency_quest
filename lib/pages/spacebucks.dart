@@ -33,6 +33,7 @@ class SpacebucksPage extends StatelessWidget {
             child: Image.asset(
               'assets/spacebucks.jpg',
               fit: BoxFit.fitWidth,
+              alignment: Alignment.topCenter,
             ),
           ),
           Column(
@@ -40,25 +41,43 @@ class SpacebucksPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 375),
                   Text(
                     'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
                     style: const TextStyle(
-                      fontSize: 60,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 17, 0),
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Spacebucks: ${formatNumber(bank.vault.balance / exchangeRate)}',
-                    style: const TextStyle(
-                      fontSize: 45,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.money,
+                        color: Colors.black,
+                        size: 50,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Spacebucks: ${formatNumber(bank.vault.balance / exchangeRate)}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    'Purchase Options:',
+                    style: TextStyle(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 17, 0),
+                      color: Colors.white,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -72,9 +91,8 @@ class SpacebucksPage extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Color.fromARGB(255, 255, 17, 0), // Gold color
-                            foregroundColor: Colors.white,
+                            backgroundColor: Color(0xFFD4AF37), // Gold color
+                            foregroundColor: Colors.black,
                           ),
                           onPressed: () {
                             showPurchaseDialog(

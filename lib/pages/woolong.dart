@@ -20,8 +20,8 @@ class WoolongPage extends StatelessWidget {
         'image': 'assets/lucky_strikes.jpg',
       },
       {
-        'item': 'Pay off Faye\'s Debt',
-        'amount': 300028000.00,
+        'item': 'Buy Food for Ein',
+        'amount': 5949.00,
         'image': 'assets/ein_food.jpg',
       },
     ];
@@ -33,6 +33,7 @@ class WoolongPage extends StatelessWidget {
             child: Image.asset(
               'assets/woolong.png',
               fit: BoxFit.scaleDown,
+              alignment: Alignment.topCenter,
             ),
           ),
           Column(
@@ -40,26 +41,44 @@ class WoolongPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 375),
                   Text(
                     'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
                     style: const TextStyle(
-                      fontSize: 60,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    '\u20A9'
-                    ': ${formatNumber(bank.vault.balance / exchangeRate)}',
-                    style: const TextStyle(
-                      fontSize: 45,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('\u20A9',
+                          style: const TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          )),
+                      const SizedBox(width: 10),
+                      Text(
+                        ' WOOLONG: ${formatNumber(bank.vault.balance / exchangeRate)}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  const Text(
+                    'Purchase Options:',
+                    style: TextStyle(
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -69,43 +88,46 @@ class WoolongPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final option = purchaseOptions[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 1.0),
                       child: Center(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFD4AF37), // Gold color
-                            foregroundColor: Colors.black,
-                          ),
-                          onPressed: () {
-                            showPurchaseDialog(
-                              context,
-                              bank,
-                              option['item'] as String,
-                              option['amount'] as dynamic,
-                              exchangeRate,
-                            );
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                option['image'] as String,
-                                fit: BoxFit.fitHeight,
-                                height: 60,
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                child: Text(
-                                  option['item'] as String,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFD4AF37), // Gold color
+                              foregroundColor: Colors.black,
+                            ),
+                            onPressed: () {
+                              showPurchaseDialog(
+                                context,
+                                bank,
+                                option['item'] as String,
+                                option['amount'] as dynamic,
+                                exchangeRate,
+                              );
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset(
+                                  option['image'] as String,
+                                  fit: BoxFit.fitHeight,
+                                  height: 60,
                                 ),
-                              ),
-                            ],
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  child: Text(
+                                    option['item'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

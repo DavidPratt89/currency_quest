@@ -8,6 +8,7 @@
 // The Bank widget is used to give access to the app state, in particular the vault
 //----------------------------------------------------------------------------
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 import '../models/vault.dart';
 
 class Bank extends InheritedWidget {
@@ -32,9 +33,13 @@ class Bank extends InheritedWidget {
       // Calling setState() will force Flutter to update dependent child widgets
       appKey.currentState?.setState(() {});
       // TODO: Play a sound to indicate the purchase succeeded. (15 pts)
+      AudioPlayer()
+          .play(AssetSource('assets/cash_register.wav')); // Play success sound
       return true;
     }
     // TODO: Play a sound to indicate the purchase failed. (15 pts)
+    AudioPlayer()
+        .play(AssetSource('assets/purchase_failure.mp3')); // Play failure sound
     return false;
   }
 
