@@ -55,22 +55,25 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Currency Quest',
         theme: ThemeData(
-          scaffoldBackgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          primarySwatch: Colors.blueGrey,
+          scaffoldBackgroundColor: Colors.blueGrey,
           appBarTheme: AppBarTheme(
             foregroundColor: Colors.black,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.grey,
             actionsIconTheme: IconThemeData(color: Colors.black),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Colors.blue,
-            selectedItemColor: Colors.amber,
-            unselectedItemColor: Colors.white,
+            backgroundColor: Colors.grey,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.black,
             selectedLabelStyle: TextStyle(
+              color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
             unselectedLabelStyle: TextStyle(
               fontSize: 14,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -111,8 +114,13 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.grey,
         actions: [
           IconButton(
             icon: Icon(Icons.home),
@@ -129,7 +137,6 @@ class MainScaffold extends StatelessWidget {
             icon: Text('\u20A9',
                 style: TextStyle(
                   fontSize: 24,
-                  color: Colors.white,
                 )),
             label: 'Woolong',
           ),

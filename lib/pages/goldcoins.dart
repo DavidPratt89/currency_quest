@@ -11,17 +11,17 @@ class GoldCoinsPage extends StatelessWidget {
     final purchaseOptions = [
       {
         'item': 'Horadric Cube',
-        'amount': 1.88,
+        'amount': 4999.99,
         'image': 'assets/cube.ico',
       },
       {
         'item': 'Rejuvenation Potion',
-        'amount': 1549.50,
+        'amount': 99.99,
         'image': 'assets/rejuvenation.ico',
       },
       {
         'item': 'Scroll of Town Portal',
-        'amount': 300028000.00,
+        'amount': 49.99,
         'image': 'assets/town_portal.png',
       },
     ];
@@ -41,16 +41,7 @@ class GoldCoinsPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: [
-                  const SizedBox(height: 375),
-                  Text(
-                    'Balance\nUSD: \$${formatNumber(bank.vault.balance)}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  const SizedBox(height: 475),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -90,10 +81,16 @@ class GoldCoinsPage extends StatelessWidget {
                       child: Center(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFD4AF37), // Gold color
+                            backgroundColor: Colors.white,
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
+                            final amountInUSD =
+                                (option['amount'] as double) * exchangeRate;
+                            if (bank.vault
+                                .buy(option['item'] as String, amountInUSD)) {
+                              bank.deposit(-amountInUSD);
+                            }
                             showPurchaseDialog(
                               context,
                               bank,
@@ -115,11 +112,18 @@ class GoldCoinsPage extends StatelessWidget {
                                 child: Text(
                                   option['item'] as String,
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                '${option['amount']} Gold Coins',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
@@ -155,8 +159,9 @@ class GoldCoinsPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                final success = bank.buy(item, amount);
                 Navigator.of(context).pop();
-                if (bank.buy(item, amount)) {
+                if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );

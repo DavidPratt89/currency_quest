@@ -13,6 +13,7 @@ import '../models/vault.dart';
 
 class Bank extends InheritedWidget {
   final GlobalKey appKey;
+  final AudioPlayer _audioPlayer = AudioPlayer();
   Bank({
     super.key,
     required this.appKey,
@@ -33,13 +34,11 @@ class Bank extends InheritedWidget {
       // Calling setState() will force Flutter to update dependent child widgets
       appKey.currentState?.setState(() {});
       // TODO: Play a sound to indicate the purchase succeeded. (15 pts)
-      AudioPlayer()
-          .play(AssetSource('assets/cash_register.wav')); // Play success sound
+      _audioPlayer.play(AssetSource('cash_register.wav'));
       return true;
     }
     // TODO: Play a sound to indicate the purchase failed. (15 pts)
-    AudioPlayer()
-        .play(AssetSource('assets/purchase_failure.mp3')); // Play failure sound
+    _audioPlayer.play(AssetSource('purchase_failure.mp3'));
     return false;
   }
 
