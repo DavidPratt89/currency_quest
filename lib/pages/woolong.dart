@@ -89,17 +89,17 @@ class WoolongPage extends StatelessWidget {
                               foregroundColor: Colors.black,
                             ),
                             onPressed: () {
-                              final amountInUSD =
-                                  (option['amount'] as double) * exchangeRate;
-                              if (bank.vault
-                                  .buy(option['item'] as String, amountInUSD)) {
-                                bank.deposit(-amountInUSD);
+                              final amountInWoolong =
+                                  option['amount'] as double;
+                              if (bank.vault.buy(
+                                  option['item'] as String, amountInWoolong)) {
+                                bank.deposit(-amountInWoolong);
                               }
                               showPurchaseDialog(
                                 context,
                                 bank,
                                 option['item'] as String,
-                                option['amount'] as dynamic,
+                                option['amount'] as double,
                                 exchangeRate,
                               );
                             },
@@ -165,9 +165,7 @@ class WoolongPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final success = bank.buy(item, amount);
-                Navigator.of(context).pop();
-                if (success) {
+                if (bank.buy(item, amount * exchangeRate)) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );
@@ -177,7 +175,7 @@ class WoolongPage extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Confirm'),
+              child: const Text('(OK)'),
             ),
           ],
         );
