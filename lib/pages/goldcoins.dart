@@ -1,3 +1,11 @@
+/**
+ * Gold Coins Page
+ * 
+ * @author: David Wise
+ * 
+ * This page allows the user to purchase items with Gold Coins.
+ * 
+ */
 import 'package:flutter/material.dart';
 import 'package:currency_quest/widgets/bank.dart';
 
@@ -85,12 +93,6 @@ class GoldCoinsPage extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
-                            final amountInGoldCoins =
-                                (option['amount'] as double);
-                            if (bank.vault.buy(
-                                option['item'] as String, amountInGoldCoins)) {
-                              bank.deposit(-amountInGoldCoins);
-                            }
                             showPurchaseDialog(
                               context,
                               bank,
@@ -159,6 +161,7 @@ class GoldCoinsPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 if (bank.buy(item, (amount * exchangeRate))) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),

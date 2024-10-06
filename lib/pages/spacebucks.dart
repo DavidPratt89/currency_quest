@@ -1,3 +1,11 @@
+/**
+ * Spacebucks page
+ * 
+ * @author: David Wise
+ * 
+ * This page allows the user to purchase items with Spacebucks.
+ * 
+ */
 import 'package:flutter/material.dart';
 import '../widgets/bank.dart';
 
@@ -85,12 +93,6 @@ class SpacebucksPage extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
-                            final amountInGoldCoins =
-                                option['amount'] as double;
-                            if (bank.buy(
-                                option['item'] as String, amountInGoldCoins)) {
-                              bank.deposit(-amountInGoldCoins);
-                            }
                             showPurchaseDialog(
                               context,
                               bank,
@@ -147,8 +149,8 @@ class SpacebucksPage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Purchase'),
-          content: Text(
-              'Do you want to buy $item for \$${(amount).toStringAsFixed(2)}?'),
+          content:
+              Text('Do you want to buy $item for \$${formatNumber(amount)}?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -158,9 +160,8 @@ class SpacebucksPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final success = bank.buy(item, (amount * exchangeRate));
                 Navigator.of(context).pop();
-                if (success) {
+                if (bank.buy(item, (amount * exchangeRate))) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );

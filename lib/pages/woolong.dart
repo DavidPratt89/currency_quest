@@ -1,3 +1,11 @@
+/**
+ * Woolong Page
+ * 
+ * @author: David Wise
+ * 
+ * This page allows the user to purchase items with Woolong.
+ * 
+ */
 import 'package:flutter/material.dart';
 import '../widgets/bank.dart';
 
@@ -7,7 +15,7 @@ class WoolongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bank = Bank.of(context);
-    const exchangeRate = 0.007;
+    const exchangeRate = 0.007; // Actual Yen to USD exchange rate
     final purchaseOptions = [
       {
         'item': 'Bell Peppers and Beef with Mushrooms',
@@ -89,12 +97,6 @@ class WoolongPage extends StatelessWidget {
                               foregroundColor: Colors.black,
                             ),
                             onPressed: () {
-                              final amountInWoolong =
-                                  option['amount'] as double;
-                              if (bank.vault.buy(
-                                  option['item'] as String, amountInWoolong)) {
-                                bank.deposit(-amountInWoolong);
-                              }
                               showPurchaseDialog(
                                 context,
                                 bank,
@@ -165,6 +167,7 @@ class WoolongPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 if (bank.buy(item, amount * exchangeRate)) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
