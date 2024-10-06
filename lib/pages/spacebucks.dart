@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/bank.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class SpacebucksPage extends StatelessWidget {
   const SpacebucksPage({super.key});
@@ -86,11 +85,11 @@ class SpacebucksPage extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
-                            final amountInUSD =
-                                (option['amount'] as double) * exchangeRate;
-                            if (bank.vault
-                                .buy(option['item'] as String, amountInUSD)) {
-                              bank.deposit(-amountInUSD);
+                            final amountInGoldCoins =
+                                option['amount'] as double;
+                            if (bank.buy(
+                                option['item'] as String, amountInGoldCoins)) {
+                              bank.deposit(-amountInGoldCoins);
                             }
                             showPurchaseDialog(
                               context,
@@ -159,7 +158,7 @@ class SpacebucksPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final success = bank.buy(item, amount);
+                final success = bank.buy(item, (amount * exchangeRate));
                 Navigator.of(context).pop();
                 if (success) {
                   ScaffoldMessenger.of(context).showSnackBar(
