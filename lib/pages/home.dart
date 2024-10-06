@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
             LayoutBuilder(
               builder: (context, constraints) {
                 final balanceText =
-                    'Balance USD:\n\$${bank.vault.balance.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+\.)'), (Match match) => '${match[1]},')}';
+                    'Balance USD:\n\$${formatNumber(bank.vault.balance)}';
                 final textStyle = TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
@@ -184,3 +184,12 @@ Future<void> _depositDialog(BuildContext context) async {
     },
   );
 }
+
+String formatNumber(double number) {
+  return number.toStringAsFixed(2).replaceAllMapped(
+        RegExp(r'(\d)(?=(\d{3})+\.)'),
+        (Match match) => '${match[1]},',
+      );
+}
+
+// Total points: 130

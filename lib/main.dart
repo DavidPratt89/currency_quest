@@ -5,7 +5,6 @@
 // Dr. Henderson
 // Homework 4
 //----------------------------------------------------------------------------
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'pages/woolong.dart';
@@ -166,4 +165,5 @@ class MainScaffold extends StatelessWidget {
     );
   }
 }
+
 // Total points: 60

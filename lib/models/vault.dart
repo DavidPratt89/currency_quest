@@ -59,5 +59,4 @@ class Vault extends ChangeNotifier {
   }
 }
 
-
 // Total points: 30

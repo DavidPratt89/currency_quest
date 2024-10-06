@@ -1,3 +1,11 @@
+/**
+ * Woolong Page
+ * 
+ * @author: David Wise
+ * 
+ * This page allows the user to purchase items with Woolong.
+ * 
+ */
 import 'package:flutter/material.dart';
 import '../widgets/bank.dart';
 
@@ -7,7 +15,7 @@ class WoolongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bank = Bank.of(context);
-    const exchangeRate = 0.007;
+    const exchangeRate = 0.007; // Actual Yen to USD exchange rate
     final purchaseOptions = [
       {
         'item': 'Bell Peppers and Beef with Mushrooms',
@@ -89,17 +97,11 @@ class WoolongPage extends StatelessWidget {
                               foregroundColor: Colors.black,
                             ),
                             onPressed: () {
-                              final amountInUSD =
-                                  (option['amount'] as double) * exchangeRate;
-                              if (bank.vault
-                                  .buy(option['item'] as String, amountInUSD)) {
-                                bank.deposit(-amountInUSD);
-                              }
                               showPurchaseDialog(
                                 context,
                                 bank,
                                 option['item'] as String,
-                                option['amount'] as dynamic,
+                                option['amount'] as double,
                                 exchangeRate,
                               );
                             },
@@ -165,9 +167,8 @@ class WoolongPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final success = bank.buy(item, amount);
                 Navigator.of(context).pop();
-                if (success) {
+                if (bank.buy(item, amount * exchangeRate)) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );
@@ -177,7 +178,7 @@ class WoolongPage extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Confirm'),
+              child: const Text('(OK)'),
             ),
           ],
         );

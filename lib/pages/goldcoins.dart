@@ -1,3 +1,11 @@
+/**
+ * Gold Coins Page
+ * 
+ * @author: David Wise
+ * 
+ * This page allows the user to purchase items with Gold Coins.
+ * 
+ */
 import 'package:flutter/material.dart';
 import 'package:currency_quest/widgets/bank.dart';
 
@@ -85,12 +93,6 @@ class GoldCoinsPage extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
-                            final amountInUSD =
-                                (option['amount'] as double) * exchangeRate;
-                            if (bank.vault
-                                .buy(option['item'] as String, amountInUSD)) {
-                              bank.deposit(-amountInUSD);
-                            }
                             showPurchaseDialog(
                               context,
                               bank,
@@ -148,8 +150,8 @@ class GoldCoinsPage extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirm Purchase'),
-          content: Text(
-              'Do you want to buy $item for \$${(amount).toStringAsFixed(2)}?'),
+          content:
+              Text('Do you want to buy $item for \$${formatNumber(amount)}?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -159,9 +161,8 @@ class GoldCoinsPage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                final success = bank.buy(item, amount);
                 Navigator.of(context).pop();
-                if (success) {
+                if (bank.buy(item, (amount * exchangeRate))) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Purchased $item')),
                   );
@@ -171,7 +172,7 @@ class GoldCoinsPage extends StatelessWidget {
                   );
                 }
               },
-              child: const Text('Confirm'),
+              child: const Text('(Ok)'),
             ),
           ],
         );
